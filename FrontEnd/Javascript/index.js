@@ -5,6 +5,8 @@ const portfolio = document.getElementById('portfolio');
 const buttonFiltre = document.querySelector('.button');
 let allWorks = [];
 
+
+// AJOUT DES BALISES DE LA GALERIE
 function createFigureElement(work) {
     const figureElement = document.createElement('figure');
     const imageElement = document.createElement('img');
@@ -19,17 +21,8 @@ function createFigureElement(work) {
     return figureElement;
 }
 
-function displayWorks(works) {
-  // Supprimer tous les travaux actuellement affichés
-    gallery.innerHTML = '';
 
-  // Afficher les travaux spécifiés
-    works.forEach(work => {
-    const figureElement = createFigureElement(work);
-    gallery.appendChild(figureElement);
-    });
-};
-
+// IMPORTATION DES PROJETS
 apiWorks
     .then(async (responseApiWorks) => {
     if (!responseApiWorks.ok) {
@@ -50,6 +43,7 @@ apiWorks
     }
 });
 
+//  IMPORTATION DES CATEGORIES, CREATION DES BOUTONS DE FILTRES ET CLASSE ACTIVE
 categories
     .then(async (responseCategories) => {
     if (!responseCategories.ok) {
@@ -107,16 +101,53 @@ categories
     }
 });
 
-// Fonction pour filtrer les travaux par catégorie
+// FONCTIONS DE FILTRE 
+function displayWorks(works) {
+  // Supprimer tous les travaux actuellement affichés
+    gallery.innerHTML = '';
+
+  // Afficher les travaux spécifiés
+    works.forEach(work => {
+    const figureElement = createFigureElement(work);
+    gallery.appendChild(figureElement);
+    });
+};
+
+// Filtre par catégories en fonction de l'id 
 function filterWorksByCategory(categories) {
     return allWorks.filter(work => work.categoryId === categories.id);
 };
 
-// Fonction pour afficher tous les travaux dans la galerie
+// Remise a zéro des projets
 function displayAllWorks() {
     displayWorks(allWorks);
 };
 
+// PARTIE EDITION 
+const admin = document.getElementById('admin');
+const login = document.getElementById('login');
+const logout = document.getElementById('logout');
+const modify = document.getElementById('modify');
+
+if (JSON.parse(sessionStorage.getItem("connected"))){
+    login.style.display = 'none'
+    logout.style.display = 'block'
+    admin.style.display = 'flex'
+    modify.style.display = 'inline-block'
+}
+else {
+    login.style.display = 'block'
+    logout.style.display = 'none'
+    admin.style.display = 'none'
+    modify.style.display = 'none'
+};
+
+logout.addEventListener("click", (event) => {
+  event.preventDefault();
+  sessionStorage.removeItem("Token");
+  sessionStorage.removeItem("connected");
+  window.location.replace("index.html");
+});
 
 
 
