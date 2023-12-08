@@ -128,12 +128,16 @@ const admin = document.getElementById('admin');
 const login = document.getElementById('login');
 const logout = document.getElementById('logout');
 const modify = document.getElementById('modify');
+const header = document.getElementById('header');
 
 if (JSON.parse(sessionStorage.getItem("connected"))){
     login.style.display = 'none'
     logout.style.display = 'block'
     admin.style.display = 'flex'
     modify.style.display = 'inline-block'
+    header.style.marginTop = '100px'
+    
+
 }
 else {
     login.style.display = 'block'

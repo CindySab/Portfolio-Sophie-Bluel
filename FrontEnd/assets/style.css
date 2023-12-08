@@ -250,12 +250,16 @@ footer nav ul {
 /* EDITION */
 
 #admin {
+	position: fixed;
+	top: 0;
+	left: 0;
 	width: 100%;
 	background-color: black;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: 0px;
+	margin-top: 0px;
+	margin-bottom: 50px;
 	height: 50px;
 	color: white;
 	gap: 20px;
@@ -282,3 +286,262 @@ footer nav ul {
 #modify i {
 	margin-right: 15px;
 }
+
+/* MODAL */
+
+#modal-container {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	margin: auto;
+	overflow: auto;	
+}
+
+.overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+#modal {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 90%;
+	max-height: 690px;
+	width: 80%;
+	max-width: 630px;
+	border-radius: 10px;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+#modal h2{
+	color: black;
+	margin-top: 60px;
+	font-size: 26px;
+	font-weight: 400;
+}
+
+#modal-close {
+	cursor: pointer;
+	position: absolute;
+	top: 26px;
+	right: 30px;
+	width: 24px;
+	height: 24px;
+	background: none;
+	border: none;
+}
+
+#modal-close i {
+	font-size: 24px;
+	display: block;
+}
+
+#add-photo{
+	cursor: pointer;
+	width: 237px;
+	height: 36px;
+	font-family: 'Syne';
+	font-size: 14px;
+    font-weight: 700;
+    color: white;
+    background-color: #1D6154;
+    text-align: center;
+    border-radius: 60px;
+	border-width: 0px;
+    margin-top: 40px;
+}
+
+.gallery-modal {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(3, auto);
+	margin: 50px 100px 0px 100px;
+	padding-bottom: 70px;
+	border-bottom: solid 1px #B3B3B3;
+	grid-row-gap: 25px;
+	grid-column-gap: 6px;
+}
+
+.gallery-modal figure {
+    position: relative;
+	height: 105px;
+}
+
+.gallery-modal img {
+	max-width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.gallery-modal figure i {
+	cursor: pointer;
+    position: absolute;
+    color: white;
+	background-color: black;
+	border-radius: 2px;
+    top: 6px;
+    right: 6px;
+    width: 18px;
+    height: 18px;
+	font-size: 9px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* MODAL 2 */
+#modal-photo {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 90%;
+	max-height: 690px;
+	width: 80%;
+	max-width: 630px;
+	border-radius: 10px;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+#modal-photo h2{
+	color: black;
+	margin-top: 60px;
+	font-size: 26px;
+	font-weight: 400;
+}
+
+#modal-return {
+	cursor: pointer;
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	top: 26px;
+	left: 30px;
+	background: none;
+	border: none;
+}
+
+#modal-return i {
+	font-size: 24px;
+	display: block;
+}
+
+#modal-photo-close {
+	cursor: pointer;
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	top: 26px;
+	right: 30px;
+	background: none;
+	border: none;
+}
+
+#modal-photo-close i {
+	font-size: 24px;
+	display: block;
+}
+
+#add-photo{
+	cursor: pointer;
+	width: 237px;
+	height: 36px;
+	font-size: 14px;
+    font-weight: 700;
+    border-radius: 60px;
+	border-width: 0px;
+    margin-top: 30px;
+}
+
+/* FORMULAIRE AJOUT PROJET */
+
+#modal-photo form{
+	display: flex;
+	flex-direction: column;
+	padding: 30px 100px 30px 100px
+}
+
+#photo-container{
+	height: 169px;
+	width: 420px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+    align-items: center;
+	background-color: #e8f1f6;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+#photo-container i{
+	font-size: 76px;
+	color: #B9C5CC;
+}
+
+#label-image{
+	padding: 13px 30px 13px 30px;
+	background-color: #cbd6dc;
+	border-radius: 25px;
+	color: #376b89;
+	margin-top: 7px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+#photo-container p {
+	font-size: 10px;
+	color: #444;
+	font-weight: 400;
+	margin-top: 7px;
+}
+
+.modal-photo-input{
+	display: flex;
+	flex-direction: column;
+	margin-top: 30px;
+	align-items: start;
+	font-size: 14px;
+	font-weight: 500;
+	color: #3D3D3D;
+}
+
+#modal-photo-category, #modal-photo-title{
+	width: 420px;
+    height: 51px;
+    box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+    border-width: 0px;
+    margin-top: 10px;
+}
+
+#input-category{
+	padding-bottom: 45px;
+	border-bottom: solid 2px #d0d0d0;
+}
+
+#valide-photo{
+	cursor: pointer;
+	width: 237px;
+	height: 36px;
+	font-size: 14px;
+    font-weight: 700;
+    border-radius: 60px;
+	border-width: 0px;
+    margin-top: 30px;
+}
+
