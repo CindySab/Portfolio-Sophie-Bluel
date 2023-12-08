@@ -58,7 +58,7 @@ const overlay = document.querySelector('.overlay');
 
 closeModal.addEventListener('click', ()=>{
     modalContainer.style.display = 'none';
-})
+});
 
 overlay.addEventListener('click', ()=>{
     modalContainer.style.display = 'none';
@@ -89,5 +89,5 @@ const modalReturn = document.getElementById('modal-return');
 modalReturn.addEventListener('click', ()=>{
     modalPhoto.style.display = 'none'
     modal.style.display = 'flex'
-})
+});
 

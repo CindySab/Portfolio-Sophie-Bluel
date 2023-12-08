@@ -19,7 +19,7 @@ function createFigureElement(work) {
     figureElement.appendChild(titleElement);
 
     return figureElement;
-}
+};
 
 
 // IMPORTATION DES PROJETS
