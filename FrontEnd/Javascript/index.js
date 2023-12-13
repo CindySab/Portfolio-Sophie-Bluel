@@ -6,7 +6,7 @@ const buttonFiltre = document.querySelector('.button');
 let allWorks = [];
 
 
-// AJOUT DES BALISES DE LA GALERIE
+// DOM : AJOUT DES BALISES DE LA GALERIE
 function createFigureElement(work) {
     const figureElement = document.createElement('figure');
     const imageElement = document.createElement('img');
@@ -22,7 +22,7 @@ function createFigureElement(work) {
 };
 
 
-// IMPORTATION DES PROJETS
+// APPEL API : IMPORTATION DES PROJETS
 apiWorks
     .then(async (responseApiWorks) => {
     if (!responseApiWorks.ok) {
@@ -43,7 +43,8 @@ apiWorks
     }
 });
 
-//  IMPORTATION DES CATEGORIES, CREATION DES BOUTONS DE FILTRES ET CLASSE ACTIVE
+//  APPEL API : IMPORTATION DES CATEGORIES
+// DOM : CREATION DES BOUTONS DE FILTRES ET CLASSE ACTIVE
 categories
     .then(async (responseCategories) => {
     if (!responseCategories.ok) {
@@ -67,7 +68,7 @@ categories
 
     // Ajouter la classe 'active' au bouton "Tous"
     tousButton.classList.add('active');
-    displayAllWorks();
+    displayWorks(allWorks);
     });
 
     filtres.appendChild(tousButton);
@@ -95,13 +96,17 @@ categories
         // Ajouter la div filtres à portfolio et la placer avant la gallery
         portfolio.appendChild(filtres);
         portfolio.insertBefore(filtres, gallery);
+
+        if (JSON.parse(sessionStorage.getItem("connected"))) {
+          filtres.style.display = 'none';
+      }
     });
     } else {
         console.error('Les catégories n\'ont pas été trouvées.');
     }
 });
 
-// FONCTIONS DE FILTRE 
+// APPEL API : FONCTIONS DE FILTRE 
 function displayWorks(works) {
   // Supprimer tous les travaux actuellement affichés
     gallery.innerHTML = '';
@@ -118,12 +123,8 @@ function filterWorksByCategory(categories) {
     return allWorks.filter(work => work.categoryId === categories.id);
 };
 
-// Remise a zéro des projets
-function displayAllWorks() {
-    displayWorks(allWorks);
-};
-
 // PARTIE EDITION 
+// A FAIRE : CACHER LA DIV FILTRES
 const admin = document.getElementById('admin');
 const login = document.getElementById('login');
 const logout = document.getElementById('logout');
@@ -135,8 +136,7 @@ if (JSON.parse(sessionStorage.getItem("connected"))){
     logout.style.display = 'block'
     admin.style.display = 'flex'
     modify.style.display = 'inline-block'
-    header.style.marginTop = '100px'
-    
+    header.style.marginTop = '100px'   
 
 }
 else {

@@ -247,6 +247,10 @@ footer nav ul {
 	padding-top: 350px;
 }
 
+#button {
+	cursor: pointer;
+}
+
 /* EDITION */
 
 #admin {
@@ -485,12 +489,11 @@ footer nav ul {
 	justify-content: center;
     align-items: center;
 	background-color: #e8f1f6;
-	padding-top: 15px;
-	padding-bottom: 15px;
 }
 #photo-container i{
 	font-size: 76px;
 	color: #B9C5CC;
+	margin-top: 15px;
 }
 
 #label-image{
@@ -509,6 +512,7 @@ footer nav ul {
 	color: #444;
 	font-weight: 400;
 	margin-top: 7px;
+	margin-bottom: 15px;
 }
 
 .modal-photo-input{
@@ -543,5 +547,6 @@ footer nav ul {
     border-radius: 60px;
 	border-width: 0px;
     margin-top: 30px;
+	background-color: #A7A7A7;
 }
 
