@@ -196,7 +196,13 @@ footer nav ul {
 
 .gallery img {
 	width: 100%;
+	object-fit: cover;
+	max-height: 457px;
 
+}
+
+.gallery figcaption {
+	padding-top: 7px;
 }
 
 

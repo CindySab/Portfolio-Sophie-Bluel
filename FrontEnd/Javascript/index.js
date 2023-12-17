@@ -34,10 +34,7 @@ apiWorks
     if (gallery) {
     allWorks = data;
       // Créer et ajouter l'image et le titre à la div gallery
-    data.forEach(work => {
-        const figureElement = createFigureElement(work);
-        gallery.appendChild(figureElement);
-    });
+    displayWorks(allWorks);
     } else {
         console.error("La galerie n'a pas été trouvée.");
     }
