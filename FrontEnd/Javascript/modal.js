@@ -200,40 +200,40 @@ function resetImage() {
  * @event change
  */
 inputImage.addEventListener("change", function () {
-    const selectedImage = inputImage.files[0]; 
-    
+    const selectedImage = inputImage.files[0];
+
     photoContainer.innerHTML = "";
 
     if (selectedImage) {
-            if (selectedImage.size > maxSize) {
-                alert("La taille de l'image dépasse 4 Mo. Veuillez choisir une image plus petite.");
-                resetImage();
-                return;
-            };
+        if (selectedImage.size > maxSize) {
+            alert("La taille de l'image dépasse 4 Mo. Veuillez choisir une image plus petite.");
+            resetImage();
+            return;
+        };
 
-    const imgPreview = document.createElement("img"); 
-    imgPreview.src = URL.createObjectURL(selectedImage);
+        const imgPreview = document.createElement("img");
+        imgPreview.src = URL.createObjectURL(selectedImage);
 
-    imgPreview.style.maxHeight = "100%";
-    imgPreview.style.width = "auto";
-    imgPreview.style.position = "relative";
+        imgPreview.style.maxHeight = "100%";
+        imgPreview.style.width = "auto";
+        imgPreview.style.position = "relative";
 
-    photoContainer.appendChild(imgPreview);
+        photoContainer.appendChild(imgPreview);
 
-    const resetButton = document.createElement('button');
-    resetButton.textContent = 'X';
+        const resetButton = document.createElement('button');
+        resetButton.textContent = 'X';
 
-    resetButton.style.position = "absolute";
-    resetButton.style.top = "120px";
-    resetButton.style.right = "110px";
-    resetButton.style.backgroundColor = "transparent";
-    resetButton.style.border = "none";
-    resetButton.style.fontSize = "15px";
-    resetButton.style.cursor = "pointer";
+        resetButton.style.position = "absolute";
+        resetButton.style.top = "120px";
+        resetButton.style.right = "110px";
+        resetButton.style.backgroundColor = "transparent";
+        resetButton.style.border = "none";
+        resetButton.style.fontSize = "15px";
+        resetButton.style.cursor = "pointer";
 
-    resetButton.addEventListener('click', resetImage);
+        resetButton.addEventListener('click', resetImage);
 
-    photoContainer.appendChild(resetButton);
+        photoContainer.appendChild(resetButton);
     }
 });
 
@@ -243,19 +243,19 @@ inputImage.addEventListener("change", function () {
  * @type {Promise<Response>} reponseCategory - La promesse contenant la réponse de la requête.
  */
 const reponseCategory = fetch('http://localhost:5678/api/categories')
-.then((response) => response.json())
-.then((data) => {
-    data.forEach((category) => {
-    const categoryOption = document.createElement('option')
-    const categoryLabel = document.createElement('label')
+    .then((response) => response.json())
+    .then((data) => {
+        data.forEach((category) => {
+            const categoryOption = document.createElement('option')
+            const categoryLabel = document.createElement('label')
 
-    categoryOption.setAttribute('value', category.id)
-    categoryLabel.innerHTML = category.name
+            categoryOption.setAttribute('value', category.id)
+            categoryLabel.innerHTML = category.name
 
-    modalPhotoCategory.appendChild(categoryOption)
-    categoryOption.appendChild(categoryLabel)
-});
-});
+            modalPhotoCategory.appendChild(categoryOption)
+            categoryOption.appendChild(categoryLabel)
+        });
+    });
 
 
 // VALIDATION FORMULAIRE
@@ -276,9 +276,9 @@ const formulaire = document.getElementById('form-project');
  * @brief Change la couleur de fond du bouton de validation en conséquence.
  * @function
  */
-function formValide (){
+function formValide() {
     if (modalPhotoTitle.value.trim() !== '' && modalPhotoCategory.value !== '' && inputImage.value !== '') {
-        buttonValidePhoto.style.backgroundColor = '#1D6154'; 
+        buttonValidePhoto.style.backgroundColor = '#1D6154';
     } else {
         buttonValidePhoto.style.backgroundColor = '';
     }
@@ -288,7 +288,7 @@ function formValide (){
  * @brief Ajoute un écouteur d'événement au formulaire pour vérifier la validité en temps réel.
  * @event input
  */
-formulaire.addEventListener ('input', formValide);
+formulaire.addEventListener('input', formValide);
 
 
 // AJOUT DE PROJET AU BACKEND
@@ -403,18 +403,23 @@ async function deleteProject(id, token) {
 
 /*
  * @brief Fonction pour confirmer la suppression d'un projet.
+ * @brief Supression de la galerie de la page index et de la modale.
  * @function
  * @param {number} id - Identifiant du projet à supprimer.
  */
-function deleteProjectConfirm(id) {
-
+async function deleteProjectConfirm(id) {
     const confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
-
     if (confirmation) {
-        deleteProject(id, token); 
-    }
-    const figureToDelete = document.querySelector(`[data-id="${id}"]`);
+        await deleteProject(id, token);
+
+        const figureToDelete = document.querySelector(`[data-id="${id}"]`);
         if (figureToDelete) {
-            figureToDelete.remove();         
+            figureToDelete.remove();
         }
+
+        const figureModalToDelete = document.querySelector(`.gallery-modal [data-id="${id}"]`);
+        if (figureModalToDelete) {
+            figureModalToDelete.remove();
+        }
+    }
 };
