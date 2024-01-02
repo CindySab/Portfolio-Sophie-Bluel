@@ -2,14 +2,13 @@
  * @brief Requête l'API pour obtenir la liste des projets pour la modale.
  * @type {Promise<Response>} apiWorksModal - La promesse contenant la réponse de la requête.
  */
-let apiWorksModal = fetch("http://localhost:5678/api/works");
+let apiWorksModal = fetch('http://localhost:5678/api/works');
 
 /*
  * @brief Élément HTML représentant la galerie pour la modale.
  * @type {HTMLElement} galleryModal - L'élément HTML représentant la galerie pour la modale.
  */
 const galleryModal = document.querySelector('.gallery-modal');
-
 
 /*
  * @brief Crée un élément figure HTML pour la modale (figure, img et icône de suppression).
@@ -18,7 +17,6 @@ const galleryModal = document.querySelector('.gallery-modal');
  * @returns {HTMLElement} - L'élément figure créé pour la modale.
  */
 function createFigureModal(work) {
-
     const figureModal = document.createElement('figure');
     figureModal.setAttribute('data-id', work.id);
 
@@ -26,14 +24,13 @@ function createFigureModal(work) {
     imageModal.src = work.imageUrl;
 
     const iDelete = document.createElement('i');
-    iDelete.className = "fa-solid fa-trash-can delete-icone";
+    iDelete.className = 'fa-solid fa-trash-can delete-icone';
 
     figureModal.appendChild(imageModal);
     figureModal.appendChild(iDelete);
 
     return figureModal;
-};
-
+}
 
 /*
  * @brief Traitement de la réponse de la requête vers l'API des projets pour la modale.
@@ -41,31 +38,29 @@ function createFigureModal(work) {
  * @param {Response} responseApiWorksModal - La réponse de la requête API pour les projets de la modale.
  * @throws {Error} - Lance une erreur si la réponse n'est pas OK.
  */
-apiWorksModal
-    .then(async (responseApiWorksModal) => {
-        if (!responseApiWorksModal.ok) {
-            throw new Error('Erreur lors de la récupération des projets');
-        }
+apiWorksModal.then(async (responseApiWorksModal) => {
+    if (!responseApiWorksModal.ok) {
+        throw new Error('Erreur lors de la récupération des projets');
+    }
 
-        const data = await responseApiWorksModal.json();
+    const data = await responseApiWorksModal.json();
 
-        if (galleryModal) {
-            apiWorksModal = data;
+    if (galleryModal) {
+        apiWorksModal = data;
 
-            data.forEach(work => {
-                const figureModal = createFigureModal(work);
-                galleryModal.appendChild(figureModal);
+        data.forEach((work) => {
+            const figureModal = createFigureModal(work);
+            galleryModal.appendChild(figureModal);
 
-                const deleteIcon = figureModal.querySelector('.delete-icone');
-                deleteIcon.addEventListener("click", () => {
-                    deleteProjectConfirm(work.id);
-                });
+            const deleteIcon = figureModal.querySelector('.delete-icone');
+            deleteIcon.addEventListener('click', () => {
+                deleteProjectConfirm(work.id);
             });
-        } else {
-            console.error("La galerie n'a pas été trouvée.");
-        }
-    });
-
+        });
+    } else {
+        console.error("La galerie n'a pas été trouvée.");
+    }
+});
 
 // GESTION D'AFFICHAGE DES MODALES
 /*
@@ -84,13 +79,12 @@ const modalPhoto = document.getElementById('modal-photo');
  * @event click
  */
 buttonModify.addEventListener('click', () => {
-    modalContainer.style.display = 'block'
-    modalPhoto.style.display = 'none'
-    modal.style.display = 'flex'
+    modalContainer.style.display = 'block';
+    modalPhoto.style.display = 'none';
+    modal.style.display = 'flex';
 });
 
-
-// FERMETURE ET OUVERTURE MODALES 
+// FERMETURE ET OUVERTURE MODALES
 /*
  * @brief Eléments HTML liés à la modale
  * @type {HTMLElement} closeModal - L'élément HTML représentant le bouton de fermeture de la modale principale.
@@ -123,6 +117,9 @@ closeModal.addEventListener('click', () => {
  */
 overlay.addEventListener('click', () => {
     modalContainer.style.display = 'none';
+    resetImage();
+    title.value = '';
+    category.value = '';
 });
 
 /*
@@ -132,7 +129,7 @@ overlay.addEventListener('click', () => {
  */
 addPhoto.addEventListener('click', () => {
     modal.style.display = 'none';
-    modalPhoto.style.display = 'flex'
+    modalPhoto.style.display = 'flex';
 });
 
 /*
@@ -142,6 +139,9 @@ addPhoto.addEventListener('click', () => {
  */
 closeModalPhoto.addEventListener('click', () => {
     modalContainer.style.display = 'none';
+    resetImage();
+    title.value = '';
+    category.value = '';
 });
 
 /*
@@ -150,10 +150,12 @@ closeModalPhoto.addEventListener('click', () => {
  * @event click
  */
 modalReturn.addEventListener('click', () => {
-    modalPhoto.style.display = 'none'
-    modal.style.display = 'flex'
+    modalPhoto.style.display = 'none';
+    modal.style.display = 'flex';
+    resetImage();
+    title.value = '';
+    category.value = '';
 });
-
 
 // FORMULAIRE AJOUT DE PROJET
 /*
@@ -166,14 +168,13 @@ modalReturn.addEventListener('click', () => {
  * @type {Array<HTMLElement>} originalChildren - Un tableau d'éléments HTML représentant les enfants originaux du conteneur d'image (icône, label, input et p)
  * @type {number} maxSize - La taille maximale autorisée pour une image (en octets).
  */
-const inputImage = document.getElementById("input-image");
-const labelImage = document.getElementById("label-image");
-const pImage = document.querySelector(".p-image");
+const inputImage = document.getElementById('input-image');
+const labelImage = document.getElementById('label-image');
+const pImage = document.querySelector('.p-image');
 const photoImage = document.getElementById('photo-image');
 const photoContainer = document.getElementById('photo-container');
 const originalChildren = Array.from(photoContainer.children);
 const maxSize = 4 * 1024 * 1024;
-
 
 /*
  * @brief Réinitialise la gestion des images.
@@ -181,62 +182,61 @@ const maxSize = 4 * 1024 * 1024;
  * @function
  */
 function resetImage() {
-
-    labelImage.style.display = "";
-    pImage.style.display = "";
-    photoImage.style.display = "";
-    photoContainer.innerHTML = "";
+    labelImage.style.display = '';
+    pImage.style.display = '';
+    photoImage.style.display = '';
+    photoContainer.innerHTML = '';
 
     for (const child of originalChildren) {
         photoContainer.appendChild(child);
     }
-    inputImage.value = "";
-};
-
+    inputImage.value = '';
+}
 
 /*
- * @brief Écouteur d'événement au champ de téléchargement d'image 
+ * @brief Écouteur d'événement au champ de téléchargement d'image
  * (afficher l'aperçu de l'image selectionnée, vérifier la taille, et ajouter un bouton de réinitialisation).
  * @event change
  */
-inputImage.addEventListener("change", function () {
+inputImage.addEventListener('change', function () {
     const selectedImage = inputImage.files[0];
 
-    photoContainer.innerHTML = "";
+    photoContainer.innerHTML = '';
 
     if (selectedImage) {
         if (selectedImage.size > maxSize) {
-            alert("La taille de l'image dépasse 4 Mo. Veuillez choisir une image plus petite.");
+            alert(
+                "La taille de l'image dépasse 4 Mo. Veuillez choisir une image plus petite."
+            );
             resetImage();
             return;
-        };
+        }
 
-        const imgPreview = document.createElement("img");
+        const imgPreview = document.createElement('img');
         imgPreview.src = URL.createObjectURL(selectedImage);
 
-        imgPreview.style.maxHeight = "100%";
-        imgPreview.style.width = "auto";
-        imgPreview.style.position = "relative";
+        imgPreview.style.maxHeight = '100%';
+        imgPreview.style.width = 'auto';
+        imgPreview.style.position = 'relative';
 
         photoContainer.appendChild(imgPreview);
 
         const resetButton = document.createElement('button');
         resetButton.textContent = 'X';
 
-        resetButton.style.position = "absolute";
-        resetButton.style.top = "120px";
-        resetButton.style.right = "110px";
-        resetButton.style.backgroundColor = "transparent";
-        resetButton.style.border = "none";
-        resetButton.style.fontSize = "15px";
-        resetButton.style.cursor = "pointer";
+        resetButton.style.position = 'absolute';
+        resetButton.style.top = '120px';
+        resetButton.style.right = '110px';
+        resetButton.style.backgroundColor = 'transparent';
+        resetButton.style.border = 'none';
+        resetButton.style.fontSize = '15px';
+        resetButton.style.cursor = 'pointer';
 
         resetButton.addEventListener('click', resetImage);
 
         photoContainer.appendChild(resetButton);
     }
 });
-
 
 /*
  * @brief Requête l'API pour obtenir la liste des catégories, création des options et label et atribution d'un id.
@@ -246,17 +246,16 @@ const reponseCategory = fetch('http://localhost:5678/api/categories')
     .then((response) => response.json())
     .then((data) => {
         data.forEach((category) => {
-            const categoryOption = document.createElement('option')
-            const categoryLabel = document.createElement('label')
+            const categoryOption = document.createElement('option');
+            const categoryLabel = document.createElement('label');
 
-            categoryOption.setAttribute('value', category.id)
-            categoryLabel.innerHTML = category.name
+            categoryOption.setAttribute('value', category.id);
+            categoryLabel.innerHTML = category.name;
 
-            modalPhotoCategory.appendChild(categoryOption)
-            categoryOption.appendChild(categoryLabel)
+            modalPhotoCategory.appendChild(categoryOption);
+            categoryOption.appendChild(categoryLabel);
         });
     });
-
 
 // VALIDATION FORMULAIRE
 /*
@@ -277,19 +276,22 @@ const formulaire = document.getElementById('form-project');
  * @function
  */
 function formValide() {
-    if (modalPhotoTitle.value.trim() !== '' && modalPhotoCategory.value !== '' && inputImage.value !== '') {
+    if (
+        modalPhotoTitle.value.trim() !== '' &&
+        modalPhotoCategory.value !== '' &&
+        inputImage.value !== ''
+    ) {
         buttonValidePhoto.style.backgroundColor = '#1D6154';
     } else {
         buttonValidePhoto.style.backgroundColor = '';
     }
-};
+}
 
 /*
  * @brief Ajoute un écouteur d'événement au formulaire pour vérifier la validité en temps réel.
  * @event input
  */
 formulaire.addEventListener('input', formValide);
-
 
 // AJOUT DE PROJET AU BACKEND
 /*
@@ -302,14 +304,14 @@ formulaire.addEventListener('input', formValide);
 const category = document.getElementById('modal-photo-category');
 const title = document.getElementById('modal-photo-title');
 const image = document.querySelector('input[type=file]');
-const token = sessionStorage.getItem("Token");
+const token = sessionStorage.getItem('Token');
 
 /*
- * @brief Ajoute un écouteur d'événement à la soumission du formulaire pour empêcher le comportement par défaut, 
+ * @brief Ajoute un écouteur d'événement à la soumission du formulaire pour empêcher le comportement par défaut,
  * puis appelle la fonction addproject avec l'événement et le jeton d'authentification.
  * @event submit
  */
-formulaire.addEventListener("submit", (event) => {
+formulaire.addEventListener('submit', (event) => {
     event.preventDefault();
 
     addproject(event, token);
@@ -326,22 +328,22 @@ async function addproject(event, token) {
     event.preventDefault();
 
     if (!title.value.trim() || !category.value || !image.files[0]) {
-        alert("Veuillez remplir tous les champs");
+        alert('Veuillez remplir tous les champs');
         return;
     }
 
     const formData = new FormData();
-    formData.append("title", title.value);
-    formData.append("category", category.value);
+    formData.append('title', title.value);
+    formData.append('category', category.value);
     formData.append('image', image.files[0]);
 
     try {
-        const response = await fetch("http://localhost:5678/api/works/", {
-            method: "POST",
+        const response = await fetch('http://localhost:5678/api/works/', {
+            method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`,
             },
-            body: formData
+            body: formData,
         });
 
         if (response.ok) {
@@ -355,24 +357,24 @@ async function addproject(event, token) {
             galleryModal.appendChild(figureModal);
 
             const deleteIcon = figureModal.querySelector('.delete-icone');
-            deleteIcon.addEventListener("click", () => {
+            deleteIcon.addEventListener('click', () => {
                 deleteProjectConfirm(responseData.id);
             });
 
             modal.style.display = 'flex';
-            modalPhoto.style.display = 'none'
+            modalPhoto.style.display = 'none';
 
             resetImage();
             title.value = '';
             category.value = '';
+            buttonValidePhoto.style.backgroundColor = '';
 
-            window.alert("Projet ajouté avec succès");
+            window.alert('Projet ajouté avec succès');
         }
     } catch (error) {
         console.error(error);
     }
-};
-
+}
 
 // SUPPRESSION DE PROJET
 /*
@@ -385,21 +387,20 @@ async function addproject(event, token) {
 async function deleteProject(id, token) {
     try {
         const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-            method: "DELETE",
+            method: 'DELETE',
             headers: {
-                accept: "*/*",
+                accept: '*/*',
                 Authorization: `Bearer ${token}`,
             },
         });
 
         if (response.ok) {
-            window.alert("Projet supprimé avec succès");
+            window.alert('Projet supprimé avec succès');
         }
-
     } catch (error) {
         console.error('Erreur lors de la suppression du projet :', error);
     }
-};
+}
 
 /*
  * @brief Fonction pour confirmer la suppression d'un projet.
@@ -408,7 +409,9 @@ async function deleteProject(id, token) {
  * @param {number} id - Identifiant du projet à supprimer.
  */
 async function deleteProjectConfirm(id) {
-    const confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
+    const confirmation = confirm(
+        'Êtes-vous sûr de vouloir supprimer ce projet ?'
+    );
     if (confirmation) {
         await deleteProject(id, token);
 
@@ -417,9 +420,11 @@ async function deleteProjectConfirm(id) {
             figureToDelete.remove();
         }
 
-        const figureModalToDelete = document.querySelector(`.gallery-modal [data-id="${id}"]`);
+        const figureModalToDelete = document.querySelector(
+            `.gallery-modal [data-id="${id}"]`
+        );
         if (figureModalToDelete) {
             figureModalToDelete.remove();
         }
     }
-};
+}
